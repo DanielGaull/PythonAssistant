@@ -17,8 +17,8 @@ class Assistant:
         env = dotenv_values(".env")
 
         oauth_object = spotipy.SpotifyOAuth(env['sp_client_id'], env['sp_client_secret'], env['sp_redirect_uri'], 
-                    scope="user-read-playback-state,user-modify-playback-state")
-        token_dict = oauth_object.get_access_token(code=env['sp_code']) 
+                    scope="user-read-playback-state,user-modify-playback-state,user-library-read")
+        token_dict = oauth_object.get_access_token()#code=env['sp_code']) 
         token = token_dict['access_token'] 
         spotifyObject = spotipy.Spotify(auth=token)
 
