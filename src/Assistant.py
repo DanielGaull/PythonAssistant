@@ -46,7 +46,7 @@ class Assistant:
 
         return self.__cmd_dict[cmd_type].run(args, mem)
 
-    def __run_line(self, line: str, mem: Memory, vars: Memory):
+    def run_line(self, line: str, mem: Memory, vars: Memory):
         if line.startswith('#'):
             return
 
@@ -70,6 +70,6 @@ class Assistant:
         for line in lines:
             line = line.strip()
             if len(line) > 0:
-                return_val = self.__run_line(line, mem, vars)
+                return_val = self.run_line(line, mem, vars)
                 if return_val is not None:
                     self.__run_cmd('speak ' + return_val)
