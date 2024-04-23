@@ -2,6 +2,7 @@ import typing
 import shlex
 from Commands.PauseCommand import PauseCommand
 from Commands.PlayCommand import PlayCommand
+from Commands.ResumeCommand import ResumeCommand
 from Memory import Memory
 from Commands.SpeakCommand import SpeakCommand
 from Commands.RememberCommand import RememberCommand
@@ -27,7 +28,8 @@ class Assistant:
                            'remember': RememberCommand(),
                            'recall': RecallCommand(),
                            'play': PlayCommand(spotifyObject),
-                           'pause': PauseCommand(spotifyObject)}
+                           'pause': PauseCommand(spotifyObject),
+                           'resume': ResumeCommand(spotifyObject)}
 
     def __replace_vars(self, s: str, vars: Memory) -> str:
         for k in vars.keys():
@@ -38,6 +40,8 @@ class Assistant:
     def __run_cmd(self, command: str, mem: Memory, vars: Memory):
         space_index = command.find(' ')
         cmd_type = command[:space_index]
+        if space_index < 0:
+            cmd_type = command
         # Split args, but keep spaces if they're within quotes
         args = shlex.split(command[space_index + 1:])
         # Replace all variables with literal values in the arguments
