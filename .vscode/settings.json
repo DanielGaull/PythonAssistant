@@ -1,0 +1,5 @@
+{
+    "python.pythonPath": "C:\\Users\\gaulldj\\AppData\\Local\\anaconda3\\python.exe",
+    "python.analysis.extraPaths": [".\\src"],
+    "python.analysis.useImportHeuristic": true
+}
