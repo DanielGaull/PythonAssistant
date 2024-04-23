@@ -17,7 +17,11 @@ class PlayCommand:
         songs_dict = results['tracks']
         song_items = songs_dict['items']
         uri = song_items[0]['uri']
-        device = self.__spotifyObject.devices()['devices'][0]
+        devices = self.__spotifyObject.devices()['devices']
+        for d in devices:
+            if d['type'] == 'Computer':
+                device = d
+                break
         device_id = device['id']
         self.__spotifyObject.start_playback(uris=[uri], device_id=device_id)
         
