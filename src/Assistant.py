@@ -1,5 +1,6 @@
 import typing
 import shlex
+from Commands.PauseCommand import PauseCommand
 from Commands.PlayCommand import PlayCommand
 from Memory import Memory
 from Commands.SpeakCommand import SpeakCommand
@@ -9,17 +10,24 @@ from dotenv import dotenv_values
 
 import re
 import pyttsx3
+import spotipy
 
 class Assistant:
     def __init__(self):
         env = dotenv_values(".env")
 
+        oauth_object = spotipy.SpotifyOAuth(env['sp_client_id'], env['sp_client_secret'], env['sp_redirect_uri'], 
+                    scope="user-read-playback-state,user-modify-playback-state")
+        token_dict = oauth_object.get_access_token(code=env['sp_code']) 
+        token = token_dict['access_token'] 
+        spotifyObject = spotipy.Spotify(auth=token)
+
         self.__engine = pyttsx3.init()
         self.__cmd_dict = {'speak': SpeakCommand(self.__engine),
                            'remember': RememberCommand(),
                            'recall': RecallCommand(),
-                           'play': PlayCommand(env['sp_client_id'], env['sp_client_secret'], 
-                                    env['sp_username'], env['sp_redirect_uri'], env['sp_code'])}
+                           'play': PlayCommand(spotifyObject),
+                           'pause': PauseCommand(spotifyObject)}
 
     def __replace_vars(self, s: str, vars: Memory) -> str:
         for k in vars.keys():
