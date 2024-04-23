@@ -8,7 +8,8 @@ def run_cli(assistant):
     print('Welcome to the Assistant Terminal')
     while True:
         line = input('> ')
-        assistant.run_line(line, mem, vars)
+        res = assistant.run_line(line, mem, vars)
+        print(res)
 
 def main():
     assistant = Assistant()

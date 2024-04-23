@@ -3,6 +3,7 @@ import shlex
 from Commands.PauseCommand import PauseCommand
 from Commands.PlayCommand import PlayCommand
 from Commands.ResumeCommand import ResumeCommand
+from Commands.SearchCommand import SearchCommand
 from Memory import Memory
 from Commands.SpeakCommand import SpeakCommand
 from Commands.RememberCommand import RememberCommand
@@ -29,7 +30,9 @@ class Assistant:
                            'recall': RecallCommand(),
                            'play': PlayCommand(spotifyObject),
                            'pause': PauseCommand(spotifyObject),
-                           'resume': ResumeCommand(spotifyObject)}
+                           'resume': ResumeCommand(spotifyObject),
+                           'search': SearchCommand()
+                           }
 
     def __replace_vars(self, s: str, vars: Memory) -> str:
         for k in vars.keys():
