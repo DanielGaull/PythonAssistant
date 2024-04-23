@@ -62,4 +62,6 @@ class Assistant:
         for line in lines:
             line = line.strip()
             if len(line) > 0:
-                self.__run_line(line, mem, vars)
+                return_val = self.__run_line(line, mem, vars)
+                if return_val is not None:
+                    self.__run_cmd('speak ' + return_val)
