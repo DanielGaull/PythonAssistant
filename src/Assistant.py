@@ -1,19 +1,25 @@
 import typing
 import shlex
+from Commands.PlayCommand import PlayCommand
 from Memory import Memory
 from Commands.SpeakCommand import SpeakCommand
 from Commands.RememberCommand import RememberCommand
 from Commands.RecallCommand import RecallCommand
+from dotenv import dotenv_values
 
 import re
 import pyttsx3
 
 class Assistant:
     def __init__(self):
+        env = dotenv_values(".env")
+
         self.__engine = pyttsx3.init()
         self.__cmd_dict = {'speak': SpeakCommand(self.__engine),
                            'remember': RememberCommand(),
-                           'recall': RecallCommand()}
+                           'recall': RecallCommand(),
+                           'play': PlayCommand(env['sp_client_id'], env['sp_client_secret'], 
+                                    env['sp_username'], env['sp_redirect_uri'], env['sp_code'])}
 
     def __replace_vars(self, s: str, vars: Memory) -> str:
         for k in vars.keys():
