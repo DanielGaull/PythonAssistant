@@ -1,5 +1,6 @@
 from Assistant import Assistant
 from Memory import Memory
+from Microphone import Microphone
 
 def run_cli(assistant):
     mem = Memory()
@@ -12,8 +13,13 @@ def run_cli(assistant):
         print(res)
 
 def main():
-    assistant = Assistant()
-    run_cli(assistant)
+    # assistant = Assistant()
+    # run_cli(assistant)
+    mic = Microphone()
+    while True:
+        print('Listening...')
+        text = mic.listen()
+        print(text)
 
 
     # assistant.run_block('''
