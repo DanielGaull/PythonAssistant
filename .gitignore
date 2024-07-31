@@ -2,7 +2,7 @@
 mem.txt
 
 # Google cookie file
-.google-cookie
+*.google-cookie
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
