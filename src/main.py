@@ -2,7 +2,7 @@ from Assistant import Assistant
 from Memory import Memory
 from Microphone import Microphone
 
-def run_cli(assistant):
+def run_cli(assistant: Assistant):
     mem = Memory()
     mem.load_from_file('mem.txt')
     vars = Memory()
@@ -13,13 +13,19 @@ def run_cli(assistant):
         print(res)
 
 def main():
-    # assistant = Assistant()
+    assistant = Assistant()
     # run_cli(assistant)
     mic = Microphone()
-    while True:
-        print('Listening...')
-        text = mic.listen()
+    def listen_callback(text):
         print(text)
+
+    assistant.say('Calibrating')
+    mic.calibrate()
+
+    mic.listen(listen_callback)
+    print('listening...')
+    while True:
+        ''''''
 
 
     # assistant.run_block('''

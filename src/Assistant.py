@@ -25,14 +25,19 @@ class Assistant:
         spotifyObject = spotipy.Spotify(auth=token)
 
         self.__engine = pyttsx3.init()
-        self.__cmd_dict = {'speak': SpeakCommand(self.__engine),
-                           'remember': RememberCommand(),
-                           'recall': RecallCommand(),
-                           'play': PlayCommand(spotifyObject),
-                           'pause': PauseCommand(spotifyObject),
-                           'resume': ResumeCommand(spotifyObject),
-                           'search': SearchCommand()
-                           }
+        self.__cmd_dict = {
+            'speak': SpeakCommand(self.__engine),
+            'remember': RememberCommand(),
+            'recall': RecallCommand(),
+            'play': PlayCommand(spotifyObject),
+            'pause': PauseCommand(spotifyObject),
+            'resume': ResumeCommand(spotifyObject),
+            'search': SearchCommand()
+        }
+
+    def say(self, text):
+        self.__engine.say(text)
+        self.__engine.runAndWait()
 
     def __replace_vars(self, s: str, vars: Memory) -> str:
         for k in vars.keys():
